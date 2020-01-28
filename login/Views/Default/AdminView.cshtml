@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "AdminView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div style="display:grid ; justify-content:flex-end;margin-top:20px" >
+            <button class="btn btn-info  btn-block btn text-info " style="color:aliceblue ; justify-content:flex-end ">@Html.ActionLink("Account Info", "AdminBankDetails")</button>
+        </div>
+
+        <div class="col-8" style="margin: 50px auto; width : 340px">
+
+
+            <form action="login" method="post">
+                @*<h2 class="text-center"> Admin</h2>*@
+                <div class="form-group" style="background-color:whitesmoke"> <h1 align="center">Admin </h1> </div>
+
+
+                <div class="form-group">
+                    <button class="btn btn-default  btn-block btn-lg " style="color:black ">@Html.ActionLink("Client List", "ClientList", "Client")</button>
+                </div>
+
+
+                <div class="form-group">
+                    <button class="btn btn-default  btn-block btn-lg " style="color:black ">@Html.ActionLink("Gym List", "OwnerList", "Owner")</button>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-default  btn-block btn-lg " style="color:black ">@Html.ActionLink("Client Payment List", "ClientPaymentList", "PaymentList")</button>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-default  btn-block btn-lg " style="color:black ">@Html.ActionLink("Owner Payment List", "OwnerPaymentList", "PaymentList")</button>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-default  btn-block btn-lg " style="color:black ">@Html.ActionLink("Booking History", "BookingList", "Owner")</button>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-default  btn-block btn-lg " style="color:black ">@Html.ActionLink("Payment to Owner", "PaymentToOwner", "PaymentToOwner")</button>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

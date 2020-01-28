@@ -1,0 +1,46 @@
+﻿@model IEnumerable<login.Models.Booking>
+
+@{
+    ViewBag.Title = "BookClientList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BookClientList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookingId)
+        </th>
+       
+        <th>
+            <b>Member Name</b>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookingId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+
+            @Html.DisplayFor(modelItem => item.Status)
+            <button class="btn btn-default">@Html.ActionLink("Confirm", "CheckedIn",new { bid=item.BookingId,oid=item.Oid})</button>
+
+        </td>
+        
+    </tr>
+}
+
+</table>

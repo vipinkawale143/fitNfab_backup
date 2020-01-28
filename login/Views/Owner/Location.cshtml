@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+    <style>
+        #map {
+            height: 500px;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <p id="demo"></p>
+    <div style="margin-left:140px">
+      
+            <div id="map" ></div>
+       
+    </div>
+    <script>
+        var x = document.getElementById("demo");
+        var a = parseFloat('@ViewBag.Latitude');
+        var b = parseFloat('@ViewBag.Longitude');
+var latco;
+var lonco;
+var latlon;
+        var position1;
+        window.onload= function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+ x.innerHTML ="<h2>Click on marker</h2>";
+latco = position.coords.latitude;
+lonco = position.coords.longitude;
+latlon = new google.maps.LatLng(latco, lonco)
+
+  initMap();
+}
+
+function initMap(){
+var talco = latco.value;
+var nolco = lonco.value;
+    var options = {
+        zoom: 12,
+        center: latlon
+    }
+    var map = new google.maps.Map(document.getElementById('map'), options);
+
+    var marker = new google.maps.Marker({
+        position: { lat: a, lng: b },
+        map: map,
+    });
+    }
+
+
+    var infoWindow = new google.maps.InfoWindow({
+    content: '<h1>@ViewBag.Name</h1>'
+    });
+
+    marker.addListener('click', function(){
+    infoWindow.open(map,marker);
+    });
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAVNhBfWdQq8-gMhG20DEIej0DEoN-c-A&callback=initMap"
+            async defer></script>
+
+</body>
+</html>

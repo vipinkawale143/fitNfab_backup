@@ -1,4 +1,5 @@
-﻿using System;
+﻿using login.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,10 +16,34 @@ namespace login.Controllers
         {
             return View();
         }
+        public ActionResult BookingHistory()
+        {
+            List<Booking> clist = new List<Booking>();
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select client.name as CName, owner.Name as OName ,BookingId,Date from client join Booking on Client.Cid = Booking.Cid join owner on Booking.Oid =Owner.Oid";
+
+            SqlDataReader dr = cmd.ExecuteReader();
+           
+
+            while (dr.Read())
+            {
+                Booking o = new Booking();
+                o.CName = Convert.ToString(dr["CName"]);
+                o.OName = Convert.ToString(dr["OName"]);
+                o.BookingId = Convert.ToInt32(dr["BookingId"]);
+                o.Date = Convert.ToString(dr["Date"]);
+                clist.Add(o);
+            }
 
 
+            return View(clist);
+        }
 
-        // GET: BookingList
-      
+
     }
 }

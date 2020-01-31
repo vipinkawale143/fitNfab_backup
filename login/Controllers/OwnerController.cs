@@ -18,24 +18,24 @@ namespace login.Controllers
 
         static string s = "";
         // GET: Owner
-        public ActionResult OwnerList(string GymName=null)
+        public ActionResult OwnerList(string city=null)
         {
             List<Owner> olist = new List<Owner>();
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
 
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            if (GymName == null)
+            if (city == null)
             {
                 cmd.CommandText = "select * from Owner where Flag=1";
             }
             else
             {
-                cmd.CommandText = "select * from Owner where Flag=1 and Name=@gym";
-                cmd.Parameters.AddWithValue("@gym", GymName);
+                cmd.CommandText = "select * from Owner where Flag=1 and Address Like @city";
+                cmd.Parameters.AddWithValue("@city", "%"+city+"%");
                
             }
 
@@ -68,7 +68,7 @@ namespace login.Controllers
         public ActionResult OwnerDetails(int id=0)
         {
 
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -117,7 +117,7 @@ namespace login.Controllers
         {
             try
             {
-                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
@@ -146,7 +146,7 @@ namespace login.Controllers
                     if(dr4.Read())
                     {
 
-                        con3.Close();
+                        
                         //ViewBag.JavaScriptFunction = string.Format("ShowMessage('{0}');","alredy");
 
                         Response.Write("<script>alert('booked already')</script>");
@@ -155,7 +155,7 @@ namespace login.Controllers
 
                     Random rand = new Random();
                     int bid = rand.Next(1000, 9999);
-                    SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                    SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
                     con2.Open();
                     
                     SqlCommand cmd2 = new SqlCommand();
@@ -224,7 +224,7 @@ namespace login.Controllers
             {
                 EncryptDecrypt e = new EncryptDecrypt();
                 // TODO: Add insert logic here
-                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
                 con.Open();
                 string pass = String.Empty;
                 if (o.Email != null)
@@ -266,7 +266,7 @@ namespace login.Controllers
 
 
                 // TODO: Add insert logic here
-                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
@@ -311,9 +311,9 @@ namespace login.Controllers
         {
 
 
-     
 
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -350,7 +350,7 @@ namespace login.Controllers
             {
                
                 string username = Convert.ToString(Session["id"]);
-                SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
                 con2.Open();
                 SqlCommand cmd2 = new SqlCommand();
                 cmd2.Connection = con2;
@@ -449,11 +449,11 @@ namespace login.Controllers
             o.Longitude = 12.13;
 
             Owner o1 = new Owner();
-            o1.Latitude = 15.11;
-            o1.Longitude = 15.13;
+            o1.Latitude = 11.11;
+            o1.Longitude = 12.13;
             ol.Add(o);
-            ol.Add(o1);
-            ViewBag.ls = ol;
+            ol.Add(o);
+            ViewBag.ol = ol;
             return View();
         }
 

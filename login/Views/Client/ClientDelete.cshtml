@@ -11,13 +11,7 @@
     <h4>Client</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Cid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cid)
-        </dd>
+       
 
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -27,22 +21,7 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ConfirmPassword)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ConfirmPassword)
-        </dd>
-
+       
         <dt>
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
@@ -51,14 +30,7 @@
             @Html.DisplayFor(model => model.Phone)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Membership)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Membership)
-        </dd>
-
+      
         <dt>
             @Html.DisplayNameFor(model => model.Age)
         </dt>
@@ -79,12 +51,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+ 
+      
+        <div>
+            @*<input type="submit" value="Delete" class="btn btn-default" />*@ 
+            <button class="btn btn-default">  @Html.ActionLink("Delete", "ClientDeletePermanants",new {Email=Model.Email })</button>
+     
         </div>
-    }
+    
 </div>

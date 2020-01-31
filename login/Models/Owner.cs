@@ -19,16 +19,19 @@ namespace login.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        [Required(ErrorMessage = "Please enter Your Name"), MaxLength(20)]
         [DisplayName("Owner Name")]
         public string Name { get; set; }
 
-        //[Range(1, 10, ErrorMessage = "Please Enter Valid Phone Number")]
-        [Required(ErrorMessage = "This field is required")]
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^[0-9]*", ErrorMessage = "Only 10 digits Numbers are allowed.")]
+        [Required(ErrorMessage = "Enter valid phone number")]
         public long Phone { get; set; }
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "Password does Not Matched")]
         public string Password { get; set; }
 
         [DisplayName("Confirm Password")]
@@ -37,10 +40,10 @@ namespace login.Models
         [Required(ErrorMessage = "This field is required")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage ="This field is required")]
+        [StringLength(300, ErrorMessage = "This field is required")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
+        [StringLength(100,ErrorMessage = "should be less than 100")]
         public string Address { get; set; }
 
         

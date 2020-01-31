@@ -13,7 +13,8 @@ namespace login.Models
         
         public int Cid { get; set; }
 
-        [Required(ErrorMessage ="This field is required")]
+        [Required(ErrorMessage = "Enter Your Name")]
+        [RegularExpression("^[a-zA-Z0-9@$]*", ErrorMessage = "Only Alphabets are allowed")]
         [DisplayName("Client Name")]
         public string Name { get; set; }
 
@@ -22,24 +23,29 @@ namespace login.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Password length should be minimum 4 and maximum 8"), MaxLength(8), MinLength(4)]
+        [RegularExpression("^[a-zA-Z0-9@$]*", ErrorMessage = "Only Alphabets, Numbers and @, $ are allowed.")]
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "This field is required")]
         public string Password { get; set; }
 
         [DisplayName("Confirm Password")]
         [DataType(DataType.Password)]
         [Compare("Password")]
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "password not match")]
         public string ConfirmPassword { get; set; }
 
-       // [Range(1, 10, ErrorMessage = "Please Enter Valid Phone Number")]
-        [Required(ErrorMessage = "This field is required")]
+
+        
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^[0-9]*", ErrorMessage = "Only 10 digits Numbers are allowed.")]
+        [Required(ErrorMessage = "Enter valid phone number")]
         public long Phone { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
         public bool Membership { get; set; }
-
-        [Required(ErrorMessage = "This field is required")]
+        
+        [Required(ErrorMessage = "Enter your age")]
+        [Range(15, 100)]
         public int Age { get; set; }
 
         [Required(ErrorMessage = "This field is required")]

@@ -13,8 +13,8 @@ namespace login.Controllers
     {
         public ActionResult ClientView()
         {
-            
-            
+
+            var id = Session["id"];
             return View();
         }
         ////[HttpPost]
@@ -40,8 +40,11 @@ namespace login.Controllers
         // GET: Default
         public ActionResult BookClientList()
         {
-
-            SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            if(Session["id"]==null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+            SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con2.Open();
 
 
@@ -52,10 +55,11 @@ namespace login.Controllers
             cmd2.Parameters.AddWithValue("@UserName", Convert.ToString(Session["id"]));
             object Oid = cmd2.ExecuteScalar();
 
+            TempData["Oid"] = Oid;
 
 
             List<Booking> clist = new List<Booking>();
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
 
 
@@ -85,14 +89,11 @@ namespace login.Controllers
 
                 
                 Booking o = new Booking();
-                o.Cid = Convert.ToInt32(dr["Cid"]);
-               
-
-                o.Oid = Convert.ToInt32(dr["Oid"]);
+              
 
                 o.BookingId = Convert.ToInt32(dr["BookingId"]);
                 o.Status = Convert.ToString(dr["Status"]);
-                o.Date = name;
+                o.CName = name;
                 clist.Add(o);
             }
 
@@ -103,7 +104,7 @@ namespace login.Controllers
 
             public ActionResult AdminBankDetails()
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
 
 
@@ -137,9 +138,9 @@ namespace login.Controllers
         }
 
 
-        public ActionResult CheckedIn(int bid,int oid)
+        public ActionResult CheckedIn(int bid)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -147,7 +148,7 @@ namespace login.Controllers
             cmd.CommandText = "update  Booking set Status='Checked' where BookingId=@bid and Oid=@oid";
 
             cmd.Parameters.AddWithValue("@bid", bid);
-            cmd.Parameters.AddWithValue("@Oid", oid);
+            cmd.Parameters.AddWithValue("@Oid", Convert.ToInt32(TempData["Oid"]));
             cmd.ExecuteNonQuery();
             con.Close();
 

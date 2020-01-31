@@ -16,7 +16,7 @@ namespace login.Controllers
         {
 
             List<ClientPayment> clist = new List<ClientPayment>();
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
 
 
@@ -49,7 +49,7 @@ namespace login.Controllers
         {
 
             List<OwnerPayment> clist = new List<OwnerPayment>();
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
 
 
@@ -67,7 +67,7 @@ namespace login.Controllers
                 o.Oid = Convert.ToInt32(dr["Oid"]);
                 o.Date = Convert.ToString(dr["Date"]);
                 o.Pid = Convert.ToInt32(dr["Pid"]);
-                o.Ammount = Convert.ToDouble(dr["Amount"]);
+                o.Amount = Convert.ToDouble(dr["Amount"]);
 
                 clist.Add(o);
             }

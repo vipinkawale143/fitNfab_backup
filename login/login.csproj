@@ -124,8 +124,10 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ClientPaymentController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ForgetPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginIdController.cs" />
+    <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\PaymentListController.cs" />
     <Compile Include="Controllers\PaymentToOwnerController.cs" />
@@ -202,10 +204,16 @@
     <Content Include="Views\Default\AdminBankDetails.cshtml" />
     <Content Include="Views\Default\BookClientList.cshtml" />
     <Content Include="Views\Owner\AllLocations.cshtml" />
+    <Content Include="Views\BookingList\BookingHistory.cshtml" />
+    <Content Include="Views\ForgetPassword\ForgetPassword.cshtml" />
+    <Content Include="Views\ForgetPassword\InsertUserName.cshtml" />
+    <Content Include="Views\ForgetPassword\UpdatePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\ClientPayment\" />
+    <Folder Include="Views\Logout\" />
+    <Folder Include="Views\OwnerAccountDetails\" />
     <Folder Include="Views\PaymentToOwner\" />
   </ItemGroup>
   <ItemGroup>

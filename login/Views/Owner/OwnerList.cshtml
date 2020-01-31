@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <h2>OwnerList</h2>
 
 <div class="row mt-3">
@@ -18,7 +20,7 @@
                 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="text" class="form-control " name="GymName" placeholder="Enter Gym name...">
+                        <input type="text" class="form-control " name="city" placeholder="Enter city name...">
                     </div>
                 </div>
 
@@ -87,4 +89,9 @@
     }
 
 </table>
+<p>
+    <button class=" btn bg-success"> @Html.ActionLink("Back", "ClientView","Default") </button>
+
+
+</p>
 

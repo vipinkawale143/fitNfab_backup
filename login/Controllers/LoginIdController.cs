@@ -26,7 +26,7 @@ namespace login.Controllers
             {
                 EncryptDecrypt b = new EncryptDecrypt();
 
-                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
@@ -37,7 +37,6 @@ namespace login.Controllers
 
 
                 cmd.Parameters.AddWithValue("Password",b.Base64Encode(pass));
-                var x = b.Base64Encode(pass);
                 cmd.Parameters.AddWithValue("UserName", username);
 
                 SqlDataReader rd = cmd.ExecuteReader();
@@ -72,15 +71,14 @@ namespace login.Controllers
 
                     }
 
-
+                    
                 }
 
-
-
-
+                
                 con.Close();
-                ViewBag.successMessage = "Please register first";
-                    return RedirectToAction("Login");
+                ViewBag.Message = "Invalid Credentials !";
+                
+                return View();
                
                 
             }

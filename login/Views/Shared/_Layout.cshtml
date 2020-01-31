@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="  btn-danger navbar-fixed-top">
+    <div style="background-color:red" class=" navbar-fixed-top">
             <div class="container ">
                 <div class="  align-items-center">
                     <div class="   h1 text-light" style="display:grid;justify-content:center;align-content:center">
@@ -23,13 +23,29 @@
   
 
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p> <h4><span class="text-danger"><b>&copy;fitNfab Application</b></span></h4> </p>
-            </footer>
-        </div>
+    <div class="container body-content">
+        @RenderBody()
+       
+        <footer>
+            <style>
+                .footer {
+                    padding-bottom: 3px;
+                    position: fixed;
+                    left: 0;
+                    bottom: 0;
+                    width: 180px;
+                    color: crimson;
+      
+                    text-align: center;
+                }
+            </style>
+
+            <div class="footer ">
+                <p><h4>&copy;fitNfab Application</h4></p>
+            </div>
+
+        </footer>
+    </div>
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")

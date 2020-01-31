@@ -14,55 +14,53 @@
 </head>
 
 <body>
-    @*<style>
-        body, html {
-            background: url("../../NewFolder1/clientview.jpg");
-            background-size: 100%;
-            background-repeat: no-repeat;
-        }
+    <style>
+    body, html { background: url("https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"); background-size: 100%; background-repeat: no-repeat; }
 
-        .bg {
-            /* The image used */
-            height: 100%;
-            /* Center and scale the image nicely */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+            
 
-        .f {
-            color: white;
-        }
+            .f {
+                color: white;
+            }
 
-        .b {
-            height: 50%;
-            width: 150%;
-        }
-    </style>*@
+            .b {
+                height: 50%;
+                width: 150%;
+            }
+        </style>
     <div class="mt-3">
         <div style="height:30px;width:50px">
             <label id="code"></label>
         </div>
     </div>
-    <div class="mt-3">
-        <button class="b btn-dark  btn-lg"> @Html.ActionLink("Profile", "ClientDetails", "Client" )</button>
+    
+    <div class="row">
+        <div class="col-9"></div>
+        <div class="mt-3">
+            <button class="b btn-success btn-lg" style="border-radius:10%;height:50px;width:90px"> @Html.ActionLink("Profile", "ClientDetails", "Client")</button>
+         
+            </div>
+        <div class="mt-3 ml-5">
+    <button class="b btn-dark  btn-lg " style="border-radius:10%;height:50px;width:90px ; "> @Html.ActionLink("Logout", "Logout", "Logout")</button>
+</div>
     </div>
+
+    
 
     <div class=" row mt-5">
         <div class="col-4"></div>
         <div class="col-4">
             <div>
                 <button class="b bg-white btn-danger btn-lg " style="height:100px ;width:200px;color:black ">@Html.ActionLink("Gym List", "OwnerList", "Owner")</button>
-            </div>
-
-
-
+               
+             </div>
+            
 
 
             <div class="mt-3">
                 <button class="b bg-white btn-danger btn-lg" style="height:100px;width:200px;">@Html.ActionLink("Book", "BookPlan", "Default")</button>
             </div>
-            
+
         </div>
 
         <div class="col-4"></div>

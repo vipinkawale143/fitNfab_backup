@@ -9,7 +9,7 @@ namespace login.Models
     {
         public int Pid { get; set; }
         public int Oid { get; set; }
-        public double Ammount { get; set; }
+        public double Amount { get; set; }
         public string Date { get; set; }
     }
 }

@@ -59,6 +59,16 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "ClientEdit", new { id = Model.Cid }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class=" btn bg-success">
+        @Html.ActionLink("Edit", "ClientEdit", new { id = Model.Cid })
+    </button>
+
+    <button class=" btn bg-success">
+        @Html.ActionLink("Back ", "ClientView", "Default")
+    </button>
+
+    <button class=" btn bg-success">
+        @Html.ActionLink("Delete", "ClientDelete","Client")
+    </button>
+
 </p>

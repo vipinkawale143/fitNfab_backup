@@ -14,8 +14,9 @@ namespace login.Models
         [DataType(DataType.PhoneNumber)]
         public long Phone { get; set; }
 
-        [DataType(DataType.Password)]
+        
         [Required(ErrorMessage = "This field is required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         public int id { get; set; }

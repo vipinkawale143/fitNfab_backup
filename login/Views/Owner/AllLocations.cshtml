@@ -23,10 +23,6 @@
         <div id="map"></div>
 
     </div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAVNhBfWdQq8-gMhG20DEIej0DEoN-c-A&callback=initMap"
-            async defer></script>
-
     <script>
         var x = document.getElementById("demo");
        // var a = parseFloat('ViewBag.Latitude');
@@ -53,40 +49,28 @@ latlon = new google.maps.LatLng(latco, lonco)
   initMap();
 }
 
-        function initMap() {
-            var talco = latco.value;
-            var nolco = lonco.value;
-            //   var calgo = latco.value();
-            var options = {
-                zoom: 12,
-                center: latlon
-            }
-            console.log("shhadi");
-            var map = new google.maps.Map(document.getElementById('map'), options);
+function initMap(){
+var talco = latco.value;
+var nolco = lonco.value;
+    var options = {
+        zoom: 12,
+        center: latlon
+    }
+    var map = new google.maps.Map(document.getElementById('map'), options);
+
+    var marker = new google.maps.Marker({
+        position: { lat: 11.23, lng: 24.23 },
+        map: map,
+    });
+    }
 
 
-            var marker = new google.maps.Marker({
-                position: { lat: 11.23, lng: 24.23 },
-                map: map,
-                
-            }); add();
-        }   
-        function add() { console.log("aejnefak");
-        addmarker({ lat: 11, lng: 13 });
-        addmarker({ lat: 12, lng: 14 });
 
-        console.log("dfkbdf");
-        var List = '@ViewBag.ol';
-        debugger;
-            for (var i = 0; i < List.length; i++) {
-                var row = List[i];
-                debugger;
-                var k = parseFloat(row.latitude);
-                var j = parseFloat(row.longitude);
-                console.log(k);
-                console.log(j);
-                addmarker({ lat: k, lng: j });
-            }
+        var List =@Html.Raw(Json.Encode(this.ViewBag.ol));
+        for (var i = 0; i < List.length; i++) {
+            var row = List[i];
+            addmarker({ lat: row.latitude, lng: row.longitude });
+            
         }
 
         function addmarker(coords) {
@@ -106,7 +90,8 @@ latlon = new google.maps.LatLng(latco, lonco)
     });
 
     </script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAVNhBfWdQq8-gMhG20DEIej0DEoN-c-A&callback=initMap"
+            async defer></script>
 
 </body>
 </html>

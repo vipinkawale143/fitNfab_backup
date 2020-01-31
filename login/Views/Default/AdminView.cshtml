@@ -7,10 +7,14 @@
 
 
 <div class="container-fluid">
-    <div class="row">
-
-        <div style="display:grid ; justify-content:flex-end;margin-top:20px" >
-            <button class="btn btn-info  btn-block btn text-info " style="color:aliceblue ; justify-content:flex-end ">@Html.ActionLink("Account Info", "AdminBankDetails")</button>
+        <div class="row">
+            <div class="col-10"></div>
+            <div class="mt-3">
+                <button class="col-11 btn btn-dark  btn-lg" style="border-radius: 85%;height:50px;width:70px"> @Html.ActionLink("Account Info", "AdminBankDetails")</button>
+            </div>
+            <div class="mt-3 ml-5">
+                <button class="btn btn-dark  btn-lg" style="border-radius: 85%;height:50px;width:70px"> @Html.ActionLink("Logout", "ClientDetails", "Client")</button>
+            </div>
         </div>
 
         <div class="col-8" style="margin: 50px auto; width : 340px">

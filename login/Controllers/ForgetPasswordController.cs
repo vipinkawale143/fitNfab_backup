@@ -27,7 +27,7 @@ namespace login.Controllers
 
             Session["id"] = username;
 
-            SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con2.Open();
 
             SqlCommand cmd2 = new SqlCommand();
@@ -46,7 +46,7 @@ namespace login.Controllers
             }
             con2.Close();
 
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -120,7 +120,7 @@ namespace login.Controllers
         {
             EncryptDecrypt e = new EncryptDecrypt();
             string id = Session["id"].ToString();
-            SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
             con2.Open();
 
             SqlCommand cmd2 = new SqlCommand();

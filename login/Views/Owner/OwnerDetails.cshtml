@@ -66,6 +66,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "OwnerEdit","Owner", new { id = Model.Oid }) |
-    @Html.ActionLink("Back to List", "Index")
+
+
+    <button class=" btn bg-success">
+        @Html.ActionLink("Back", "OwnerList", "Owner")
+    </button>
+
+  
 </p>

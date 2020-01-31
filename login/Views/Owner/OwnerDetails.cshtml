@@ -7,6 +7,16 @@
 
 <h2>OwnerDetails</h2>
 
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        window.onload = function ()
+        {
+                document.getElementById("x").innerHTML = '@ViewBag.Message';
+        };
+    </script>
+}
+
 <div>
     <h4>Owner</h4>
     <hr />
@@ -35,7 +45,7 @@
             @Html.DisplayFor(model => model.Phone)
         </dd>
 
-       
+
 
         <dt>
             @Html.DisplayNameFor(model => model.Description)
@@ -54,14 +64,14 @@
         </dd>
 
         <dt>
-           <b>Location</b>
+            <b>Location</b>
         </dt>
 
         <dd>
-           @Html.ActionLink("locate","Location","Owner",new {obj=Model.Latitude })
+            @Html.ActionLink("locate", "Location", "Owner", new { obj = Model.Latitude })
         </dd>
 
-       
+
 
     </dl>
 </div>
@@ -69,8 +79,22 @@
 
 
     <button class=" btn bg-success">
-        @Html.ActionLink("Back", "OwnerList", "Owner")
+        @Html.ActionLink("Back", "BookClientList", "Default")
     </button>
 
-  
+    <button class=" btn bg-success">
+        @Html.ActionLink("Edit", "OwnerEdit", "Owner")
+    </button>
+
+
+    <button class=" btn bg-success">
+        @Html.ActionLink("Add Account", "AddAccount", "OwnerAccountDetails")
+    </button>
+
+
+    <button class=" btn bg-success">
+        @Html.ActionLink("Account Details", "AccountDetails", "OwnerAccountDetails")
+    </button>
+
 </p>
+<p id="x"></p>

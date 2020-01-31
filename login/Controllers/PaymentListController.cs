@@ -15,41 +15,59 @@ namespace login.Controllers
         public ActionResult ClientPaymentList()
         {
 
-            List<ClientPayment> clist = new List<ClientPayment>();
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
-            con.Open();
-
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from ClientPayment";
-
-            SqlDataReader dr = cmd.ExecuteReader();
-            //Models.Client o = new Models.Client();
-
-            while (dr.Read())
+            if (Session["id"] == null)
             {
-                ClientPayment o = new ClientPayment();
-                o.Cid = Convert.ToInt32(dr["Cid"]);
-                o.Date = Convert.ToString(dr["Date"]);
-                o.Pid = Convert.ToInt32(dr["Pid"]);
-                o.Ammount = Convert.ToDouble(dr["Amount"]);
-                
-                clist.Add(o);
+                return RedirectToAction("Login", "LoginId");
             }
+            try
+            {
+                List<ClientPayment> clist = new List<ClientPayment>();
+                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                con.Open();
 
 
-            return View(clist);
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select * from ClientPayment";
 
-            
+                SqlDataReader dr = cmd.ExecuteReader();
+                //Models.Client o = new Models.Client();
+                
+
+                while (dr.Read())
+                {
+                    ClientPayment o = new ClientPayment();
+                    o.Cid = Convert.ToInt32(dr["Cid"]);
+                    o.Date = Convert.ToString(dr["Date"]);
+                    o.TransactionId = (dr["TransactionId"]).ToString();
+                    o.Ammount = Convert.ToDouble(dr["Amount"]);
+
+                    clist.Add(o);
+                }
+
+
+                return View(clist);
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
         }
 
         public ActionResult OwnerPaymentList()
         {
 
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+            try
+            { 
             List<OwnerPayment> clist = new List<OwnerPayment>();
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con.Open();
 
 
@@ -66,15 +84,19 @@ namespace login.Controllers
                 OwnerPayment o = new OwnerPayment();
                 o.Oid = Convert.ToInt32(dr["Oid"]);
                 o.Date = Convert.ToString(dr["Date"]);
-                o.Pid = Convert.ToInt32(dr["Pid"]);
-                o.Amount = Convert.ToDouble(dr["Amount"]);
+                    o.TransactionId = (dr["TransactionId"]).ToString();
+                    o.Amount = Convert.ToDouble(dr["Amount"]);
 
                 clist.Add(o);
             }
 
 
             return View(clist);
-
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
 
         }
 

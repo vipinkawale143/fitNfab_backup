@@ -11,5 +11,6 @@ namespace login.Models
         public int Cid { get; set; }
         public double Ammount { get; set; }
         public string Date { get; set; }
+        public string TransactionId { get; set; }
     }
 }

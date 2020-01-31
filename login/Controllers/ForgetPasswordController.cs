@@ -23,104 +23,131 @@ namespace login.Controllers
         }
         public ActionResult InsertUserName(string username)
         {
-            
 
+          //  TempData["otp"] = 1100;
             Session["id"] = username;
-
-            SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
-            con2.Open();
-
-            SqlCommand cmd2 = new SqlCommand();
-            cmd2.Connection = con2;
-            cmd2.CommandType = CommandType.Text;
-            cmd2.CommandText = "select Type from Users where UserName=@username";
-
-
-            cmd2.Parameters.AddWithValue("username", username);
-
-            var type = cmd2.ExecuteScalar().ToString();
-            if (type == null)
+            try
             {
-                Response.Write("< script >alert(Otp not match)  </script>");
-                return RedirectToAction("Login", "LoginId");
-            }
-            con2.Close();
+                SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                con2.Open();
 
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-
-            if (type.Equals("Client"))
-            {
-                cmd.CommandText = "select Phone from Client where Email=@username";
-            }
-            else
-            {
-                cmd.CommandText = "select Phone from Owner where Email=@username";
-            }
-
-            cmd.Parameters.AddWithValue("@username", username);
-
-            var number = cmd.ExecuteScalar().ToString();
-            con.Close();
+                SqlCommand cmd2 = new SqlCommand();
+                cmd2.Connection = con2;
+                cmd2.CommandType = CommandType.Text;
+                cmd2.CommandText = "select Type from Users where UserName=@username";
 
 
-            string apikey = ConfigurationManager.AppSettings["apiKey"].ToString();
+                cmd2.Parameters.AddWithValue("username", username);
 
-            var status = "";
-            Random ran = new Random();
-            int otp = ran.Next(1000, 9999);
+                var type = cmd2.ExecuteScalar().ToString();
+                if (type == null)
+                {
+                    Response.Write("< script >alert(Otp not match)  </script>");
+                    return RedirectToAction("Login", "LoginId");
+                }
+                con2.Close();
 
-            TempData["otp"] = otp;
+                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                con.Open();
 
-            string msg = " OTP :" + otp;
-            string enCode = HttpUtility.UrlEncode(msg);
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
 
-            using (var webClient = new WebClient())
-            {
+                if (type.Equals("Client"))
+                {
+                    cmd.CommandText = "select Phone from Client where Email=@username";
+                }
+                else
+                {
+                    cmd.CommandText = "select Phone from Owner where Email=@username";
+                }
 
-                byte[] res = webClient.UploadValues("https://api.textlocal.in/send/", new System.Collections.Specialized.NameValueCollection() {
+                cmd.Parameters.AddWithValue("@username", username);
+
+                var number = cmd.ExecuteScalar().ToString();
+                con.Close();
+
+
+                string apikey = ConfigurationManager.AppSettings["apiKey"].ToString();
+
+                var status = "";
+                Random ran = new Random();
+                int otp = ran.Next(1000, 9999);
+
+                TempData["otp"] = otp;
+
+                string msg = " OTP :" + otp;
+                string enCode = HttpUtility.UrlEncode(msg);
+
+                using (var webClient = new WebClient())
+                {
+
+                    byte[] res = webClient.UploadValues("https://api.textlocal.in/send/", new System.Collections.Specialized.NameValueCollection() {
 
                      {"apiKey",apikey},
                      {"numbers" ,number},
                      {"message",enCode },
                      { "sender","TXTLCL"} });
 
-                string result = System.Text.Encoding.UTF8.GetString(res);
+                    string result = System.Text.Encoding.UTF8.GetString(res);
 
-                var jsonObj = JObject.Parse(result);
-                status = jsonObj["status"].ToString();
+                    var jsonObj = JObject.Parse(result);
+                    status = jsonObj["status"].ToString();
 
+                }
+
+                return View();
             }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
+        }
+
+        public ActionResult Verify(int otp = 1100)
+        {
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+            try
+            {
+
+                if (otp == Convert.ToInt64(TempData["otp"]))
+                {
+                    return RedirectToAction("UpdatePassword","ForgetPassword");
+                }
+                else
+                {
+                    Response.Write("< script >alert(Otp not match)  </script>");
+                }
+                return RedirectToAction("Login", "LoginId");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+
+        }
+
+         public ActionResult UpdatePassword()
+        {
             return View();
         }
-
-        public ActionResult Verify(int otp=1100)
+         public ActionResult EditPassWord(string pass)
         {
 
-            if (otp == Convert.ToInt64(TempData["otp"]))
+            if (Session["id"] == null)
             {
-                return RedirectToAction("UpdatePassword","ForgetPassword");
+                return RedirectToAction("Login", "LoginId");
             }
-            else
-            {
-                Response.Write("< script >alert(Otp not match)  </script>");
-            }
-            return RedirectToAction("Login", "LoginId");
-        }
-
-        public ActionResult UpdatePassword()
-        {
-            return View();
-        }
-        public ActionResult EditPassWord(string pass)
-        {
+            try
+                { 
             EncryptDecrypt e = new EncryptDecrypt();
             string id = Session["id"].ToString();
-            SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con2.Open();
 
             SqlCommand cmd2 = new SqlCommand();
@@ -135,7 +162,12 @@ namespace login.Controllers
             con2.Close();
 
             return RedirectToAction("Login", "LoginId");
-
+            }
+                
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
         }
     }
 }

@@ -15,10 +15,15 @@ namespace login.Controllers
         public ActionResult MonthlyPayment()
         {
 
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+
             try { 
             string email = Session["id"].ToString();
-                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
-                con.Open();
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
@@ -26,11 +31,13 @@ namespace login.Controllers
             cmd.Parameters.AddWithValue("email", email);
 
             int cid =Convert.ToInt32(cmd.ExecuteScalar());
-
+                Random ran = new Random();
+                int no = ran.Next(100000,999999);
                 double amount = 2000;
             cmd.Parameters.Clear();
-            cmd.CommandText = "insert into ClientPayment values(@Cid,@amount,getdate())";
+            cmd.CommandText = "insert into ClientPayment values(@Cid,@amount,getdate(),@Tid)";
             cmd.Parameters.AddWithValue("Cid", cid);
+            cmd.Parameters.AddWithValue("Tid", no);
                 cmd.Parameters.AddWithValue("amount", amount);
                 cmd.ExecuteNonQuery();
 
@@ -65,10 +72,16 @@ namespace login.Controllers
         public ActionResult WeeklyPayment()
         {
 
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+
             try { 
             string email = Session["id"].ToString();
-                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
-                con.Open();
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+            con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
@@ -78,9 +91,14 @@ namespace login.Controllers
             int cid = Convert.ToInt32(cmd.ExecuteScalar());
                 double amount = 700;
 
+                Random ran = new Random();
+                int no = ran.Next(100000, 999999);
+
+
                 cmd.Parameters.Clear();
-            cmd.CommandText = "insert into ClientPayment values(@Cid,@amount,getdate())";
+            cmd.CommandText = "insert into ClientPayment values(@Cid,@amount,getdate(),@Tid)";
             cmd.Parameters.AddWithValue("Cid", cid);
+            cmd.Parameters.AddWithValue("Tid", no);
                 cmd.Parameters.AddWithValue("amount", amount);
                 cmd.ExecuteNonQuery();
 
@@ -112,10 +130,15 @@ namespace login.Controllers
 
         public ActionResult QuaterlyPayment()
         {
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
             try
             {
                 string email = Session["id"].ToString();
-                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
@@ -126,9 +149,14 @@ namespace login.Controllers
                 int cid = Convert.ToInt32(cmd.ExecuteScalar());
                 double amount = 5000;
 
+                Random ran = new Random();
+                int no = ran.Next(100000, 999999);
+
+
                 cmd.Parameters.Clear();
-                cmd.CommandText = "insert into ClientPayment values(@Cid,@amount,getdate())";
+                cmd.CommandText = "insert into ClientPayment values(@Cid,@amount,getdate(),@Tid)";
                 cmd.Parameters.AddWithValue("Cid", cid);
+                cmd.Parameters.AddWithValue("Tid", no);
                 cmd.Parameters.AddWithValue("amount", amount);
                 cmd.ExecuteNonQuery();
 

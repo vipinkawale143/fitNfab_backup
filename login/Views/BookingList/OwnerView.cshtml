@@ -39,10 +39,21 @@
                 width: 150%;
             }
         </style>*@
-    <div class="mt-3">
-        <button class="b btn-dark  btn-lg"> @Html.ActionLink("Profile", "OwnerDetails", "Owner")</button>
-    </div>
 
+    <div class="row " style="justify-content:space-around">
+        <div class="col-10"></div>
+        <div class="mt-3">
+            <div class="mt-3">
+                <button class="b btn-dark  btn-lg"> @Html.ActionLink("Profile", "OwnerDetails", "Owner")</button>
+            </div>
+        </div>
+
+        <div class="col-md-offset-12 " style="justify-content:flex-end">
+            <button class="b btn btn-info " style="border-radius:10%;height:40px;width:90px  "> @Html.ActionLink("Logout", "Logout", "Logout")</button>
+
+        </div>
+    </div>
+    
     <div class=" row mt-5">
         <div class="col-4"></div>
         <div class="col-4">
@@ -58,8 +69,8 @@
 
 
             @*<div class="mt-3">
-            <button class="b bg-white btn-danger btn-lg" style="height:100px;width:200px;">@Html.ActionLink("Book", "BookPlan", "Default")</button>
-        </div>*@
+                    <button class="b bg-white btn-danger btn-lg" style="height:100px;width:200px;">@Html.ActionLink("Book", "BookPlan", "Default")</button>
+                </div>*@
 
         </div>
 

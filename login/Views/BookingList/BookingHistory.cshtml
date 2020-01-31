@@ -4,13 +4,27 @@
     ViewBag.Title = "BookingHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid mt-10">
 
-<h2>BookingHistory</h2>
+    <div class="row " style="justify-content:space-around">
+        <div class="col-10"></div>
+        <div class="mt-3">
+            <h2>BookingHistory</h2>
+        </div>
+        <div><button class="btn btn-danger">@Html.ActionLink("Back","AdminView","Default")</button></div>
+
+        <div class="col-md-offset-12 " style="justify-content:flex-end">
+            <button class="b btn btn-info " style="border-radius:10%;height:40px;width:90px  "> @Html.ActionLink("Logout", "Logout", "Logout")</button>
+
+        </div>
+    </div>
+</div>
+
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BookingId)
+            <b>Session Id</b>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CName)
@@ -24,22 +38,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookingId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
 
-    </tr>
-}
+        </tr>
+    }
 
 </table>

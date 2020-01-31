@@ -128,9 +128,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginIdController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\OwnerAccountDetailsController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\PaymentListController.cs" />
-    <Compile Include="Controllers\PaymentToOwnerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,6 +142,7 @@
     <Compile Include="Models\keyAttribute.cs" />
     <Compile Include="Models\LoginId.cs" />
     <Compile Include="Models\Owner.cs" />
+    <Compile Include="Models\OwnerAccountDetails.cs" />
     <Compile Include="Models\OwnerPayment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -192,7 +193,6 @@
     <Content Include="Views\Default\ClientView.cshtml" />
     <Content Include="Views\Default\BookPlan.cshtml" />
     <Content Include="Views\Owner\Location.cshtml" />
-    <Content Include="Views\Client\ClientRegistration.cshtml" />
     <Content Include="Views\Owner\OwnerList.cshtml" />
     <Content Include="Views\Default\AdminView.cshtml" />
     <Content Include="Views\Owner\OwnerDetails.cshtml" />
@@ -207,13 +207,16 @@
     <Content Include="Views\BookingList\BookingHistory.cshtml" />
     <Content Include="Views\ForgetPassword\ForgetPassword.cshtml" />
     <Content Include="Views\ForgetPassword\InsertUserName.cshtml" />
+    <Content Include="Views\Client\ClientRegistration.cshtml" />
+    <Content Include="Views\Owner\OwnerListForAdmin.cshtml" />
+    <Content Include="Views\OwnerAccountDetails\AddAccount.cshtml" />
+    <Content Include="Views\OwnerAccountDetails\AccountDetails.cshtml" />
     <Content Include="Views\ForgetPassword\UpdatePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\ClientPayment\" />
     <Folder Include="Views\Logout\" />
-    <Folder Include="Views\OwnerAccountDetails\" />
     <Folder Include="Views\PaymentToOwner\" />
   </ItemGroup>
   <ItemGroup>

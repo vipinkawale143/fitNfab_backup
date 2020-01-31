@@ -1,0 +1,60 @@
+﻿@model login.Models.OwnerAccountDetails
+
+@{
+    ViewBag.Title = "AccountDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AccountDetails</h2>
+
+<div>
+    <h4>OwnerAccountDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankHolderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankHolderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IFSC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IFSC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentAmount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back", "OwnerDetails", "owner" ) |
+  </p>

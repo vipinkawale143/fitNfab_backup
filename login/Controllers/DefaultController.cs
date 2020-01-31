@@ -17,26 +17,19 @@ namespace login.Controllers
             var id = Session["id"];
             return View();
         }
-        ////[HttpPost]
+        
         public ActionResult BookPlan()
         {
-            //SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project14;Integrated Security=True");
-            //con.Open();
-            //SqlCommand cmd = new SqlCommand();
-            //cmd.Connection = con;
-            //cmd.CommandType = CommandType.Text;
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
 
             return View();
         }
 
-        //public ActionResult Location(string Latitude, string Longitude, string Name)
-        //{
-        //    @ViewBag.Latitude = Latitude;
-        //    @ViewBag.Longitude = Longitude;
-        //    @ViewBag.Name = Name;
-        //    return View();
-        //}
-
+        
         // GET: Default
         public ActionResult BookClientList()
         {
@@ -44,7 +37,8 @@ namespace login.Controllers
             {
                 return RedirectToAction("Login", "LoginId");
             }
-            SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            try { 
+            SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con2.Open();
 
 
@@ -59,7 +53,7 @@ namespace login.Controllers
 
 
             List<Booking> clist = new List<Booking>();
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con.Open();
 
 
@@ -99,12 +93,23 @@ namespace login.Controllers
 
 
             return View(clist);
-
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
         }
 
             public ActionResult AdminBankDetails()
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+            try
+            { 
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con.Open();
 
 
@@ -132,15 +137,26 @@ namespace login.Controllers
 
             return View(o);
 
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
 
 
-            
         }
 
 
         public ActionResult CheckedIn(int bid)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+            try
+            { 
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -153,11 +169,21 @@ namespace login.Controllers
             con.Close();
 
             return RedirectToAction("BookClientList", "Default");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
         }
 
         // GET: Default/Details/5
         public ActionResult Details(int id)
         {
+
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
             return View();
         }
 

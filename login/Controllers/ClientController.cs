@@ -19,15 +19,17 @@ namespace login.Controllers
         // GET: Client
         public ActionResult ClientList()
         {
+            try
+            { 
             List<Client> clist = new List<Client>();
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con.Open();
 
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from Client";
+            cmd.CommandText = "select * from Client where Flag=1";
 
             SqlDataReader dr = cmd.ExecuteReader();
             //Models.Client o = new Models.Client();
@@ -47,30 +49,30 @@ namespace login.Controllers
 
 
             return View(clist);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
         }
 
         //  GET: Client/Details/5
         public ActionResult ClientDetails(int id = 0)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            try
+            { 
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            //details for admin or owner
-            if (id != 0)
-            {
-                cmd.CommandText = "select * from  Client where Cid=@Cid";
-                cmd.Parameters.AddWithValue("@Cid", id);
-            }
-            //detail for own    
-           else if (id == 0)
-            {
-                var s = Session["id"];
+            
+            
+               
                 string username = Convert.ToString(Session["id"]);
-                cmd.CommandText = "select * from  Client where Email=@username";
+                cmd.CommandText = "select * from  Client where Email=@username and Flag=1";
                 cmd.Parameters.AddWithValue("@username", username);
-            }
+            
             
 
             SqlDataReader dr = cmd.ExecuteReader();
@@ -92,7 +94,11 @@ namespace login.Controllers
 
             return View(o);
 
-
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
 
 
         }
@@ -105,7 +111,7 @@ namespace login.Controllers
             {
                 EncryptDecrypt e = new EncryptDecrypt();
                 // TODO: Add insert logic here
-                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
                 con.Open();
                 string pass = String.Empty;
                 if (o.Email != null)
@@ -140,17 +146,24 @@ namespace login.Controllers
         [HttpPost]
         public ActionResult ClientRegistration(Client o)
         {
-            EncryptDecrypt b = new EncryptDecrypt();
+            
             try
             {
+                EncryptDecrypt b = new EncryptDecrypt();
+                if ((o.Name.Equals(""))||(o.Email.Equals(""))||o.Password.Equals("")||(o.Phone<1000000000)&&(o.Phone>9999999999)||(o.Age<12)&&(o.Age>80))
+                {
+                    ViewBag.message = "Fill details correctly";
+                    return RedirectToAction("ClientRegistraion", "Client");
+
+                }
                 // TODO: Add insert logic here
-                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "insert into Users values(@UserName,@Password,@Type,@Flag)";
-                cmd.Parameters.AddWithValue("UserName", s);
+                cmd.Parameters.AddWithValue("UserName", o.Email);
                 cmd.Parameters.AddWithValue("Password",b.Base64Encode(o.Password));
                 cmd.Parameters.AddWithValue("Flag",1);
                 cmd.Parameters.AddWithValue("Type", "Client");
@@ -159,7 +172,7 @@ namespace login.Controllers
                 cmd.Parameters.Clear();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "insert into Client values(@Email,@Name,@Phone,@Gender,@Age,@Membership,@Flag)";
-                cmd.Parameters.AddWithValue("Email", s);
+                cmd.Parameters.AddWithValue("Email", o.Email);
                 cmd.Parameters.AddWithValue("Name", o.Name);
                 cmd.Parameters.AddWithValue("Phone", o.Phone);
                 cmd.Parameters.AddWithValue("Gender", o.Gender);
@@ -170,14 +183,14 @@ namespace login.Controllers
                 cmd.ExecuteNonQuery();
 
                 con.Close();
-                Response.Write("<script>alert('data entered successfully')</script>");
+                ViewBag.Message = "registered succsessfuly";
 
                 return RedirectToAction("Login", "LoginId");
                 
             }
             catch(Exception e)
             {
-               // Response.Write("<script>alert('primary key voilation')</script>");
+               
                 return View();
             }
         }
@@ -185,7 +198,13 @@ namespace login.Controllers
         // GET: Client/Edit/5
         public ActionResult ClientEdit(int id=0)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+            try
+            { 
+            if (Session["id"] == null)
+            {
+                return RedirectToAction("Login", "LoginId");
+            }
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
             con.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -211,6 +230,11 @@ namespace login.Controllers
 
             con.Close();
             return View(o);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
+            }
         }
 
         //// POST: Client/Edit/5
@@ -219,33 +243,10 @@ namespace login.Controllers
         {
             try
             {
-                //SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
-                //con.Open();
-                //SqlCommand cmd = new SqlCommand();
-                //cmd.Connection = con;
-                //cmd.CommandType = CommandType.Text;
-                //cmd.CommandText = "select Flag from  Client where Email=@UserName";
-                //string username = Convert.ToString(Session["id"]);
-                //cmd.Parameters.AddWithValue("UserName", username);
-
-                //bool flag  = Convert.ToBoolean(cmd.ExecuteScalar());
-                //con.Close();
-
-                //SqlConnection con1 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
-                //con.Open();
-                //SqlCommand cmd1 = new SqlCommand();
-                //cmd1.Connection = con1;
-                //cmd1.CommandType = CommandType.Text;
-                //cmd1.CommandText = "update Users set Password =@pass where Flag=@flag";
-
-                //cmd1.Parameters.AddWithValue("@pass", o.Password);
-                //cmd1.Parameters.AddWithValue("@flag", flag);
-                //cmd1.ExecuteNonQuery();
-                //con1.Close();
-
+                
 
                 string username = Convert.ToString(Session["id"]);
-                SqlConnection con2 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+                SqlConnection con2 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
                 con2.Open();
                 SqlCommand cmd2 = new SqlCommand();
                 cmd2.Connection = con2;
@@ -273,36 +274,47 @@ namespace login.Controllers
         //// GET: Client/Delete/5
         public ActionResult ClientDelete(int id = 0)
         {
-
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from  Client where Email=@Email";
-            string username = Convert.ToString(Session["id"]);
-            cmd.Parameters.AddWithValue("Email", username);
-            SqlDataReader dr = cmd.ExecuteReader();
-
-
-            Models.Client o = new Models.Client();
-            if (dr.Read())
+            try
             {
-                
-                o.Email = Convert.ToString(dr["Email"]);
-                o.Name = Convert.ToString(dr["Name"]);
-                
-                o.Phone = Convert.ToInt64(dr["Phone"]);
-                o.Age = Convert.ToInt32(dr["Age"]);
-                o.Gender = Convert.ToString(dr["Gender"]);
+                if (Session["id"] == null)
+                {
+                    return RedirectToAction("Login", "LoginId");
+                }
 
+                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select * from  Client where Email=@Email";
+                string username = Convert.ToString(Session["id"]);
+                cmd.Parameters.AddWithValue("Email", username);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+
+                Models.Client o = new Models.Client();
+                if (dr.Read())
+                {
+
+                    o.Email = Convert.ToString(dr["Email"]);
+                    o.Name = Convert.ToString(dr["Name"]);
+
+                    o.Phone = Convert.ToInt64(dr["Phone"]);
+                    o.Age = Convert.ToInt32(dr["Age"]);
+                    o.Gender = Convert.ToString(dr["Gender"]);
+
+                }
+
+                con.Close();
+                return View(o);
+            
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("LoginId", "Login");
             }
 
-            con.Close();
-            return View(o);
-
-
-        }
+}
         public ActionResult DummyView()
         {
             return View();
@@ -314,7 +326,7 @@ namespace login.Controllers
             try
             {
 
-                SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+                SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
                 con.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
@@ -329,7 +341,7 @@ namespace login.Controllers
 
 
 
-                SqlConnection con1 = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Vipin\Documents\project.mdf;Integrated Security=True");
+                SqlConnection con1 = new SqlConnection(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=project;Integrated Security=True");
                 con1.Open();
                 SqlCommand cmd1 = new SqlCommand();
                 cmd1.Connection = con1;

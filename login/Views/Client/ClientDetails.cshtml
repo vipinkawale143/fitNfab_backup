@@ -4,10 +4,17 @@
     ViewBag.Title = "ClientDetails";
 }
 
-<h2>ClientDetails</h2>
 
+<div class="row " style="justify-content:space-around">
+    <div class="col-10">
+    <h2>ClientDetails</h2></div>
+    <div class="col-md-offset-12 " style="justify-content:flex-end">
+        <button class="b btn btn-info " style="border-radius:10%;height:40px;width:90px  "> @Html.ActionLink("Logout", "Logout", "Logout")</button>
+
+    </div>
+</div>
 <div>
-    <h4>Client</h4>
+
     <hr />
     <dl class="dl-horizontal">
 
@@ -37,7 +44,7 @@
             @Html.DisplayFor(model => model.Phone)
         </dd>
 
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Age)
         </dt>
@@ -68,7 +75,7 @@
     </button>
 
     <button class=" btn bg-success">
-        @Html.ActionLink("Delete", "ClientDelete","Client")
+        @Html.ActionLink("Delete", "ClientDelete", "Client")
     </button>
 
 </p>

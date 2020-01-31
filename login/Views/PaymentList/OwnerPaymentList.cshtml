@@ -5,21 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>OwnerPaymentList</h2>
+<h2>Owner Payment List</h2>
+<button class="btn btn-danger">@Html.ActionLink("Back","AdminView","Default")</button>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Pid)
+            @Html.DisplayNameFor(model => model.TransactionId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Oid)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ammount)
+            @Html.DisplayNameFor(model => model.Amount)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Date)
@@ -30,22 +28,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Pid)
+            @Html.DisplayFor(modelItem => item.TransactionId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Oid)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Ammount)
+            @Html.DisplayFor(modelItem => item.Amount)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+        
     </tr>
 }
 
